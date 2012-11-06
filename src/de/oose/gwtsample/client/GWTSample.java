@@ -2,6 +2,8 @@ package de.oose.gwtsample.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -11,6 +13,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import de.oose.gwtsample.shared.Pair;
+
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -64,16 +67,22 @@ public class GWTSample implements EntryPoint {
 
 								@Override
 								public void onSuccess(
-										Pair<Integer, Boolean> result) {
-									Element elem = DOM.getElementById("prime"
-											+ result.left);
+										final Pair<Integer, Boolean> result) {
+									Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+										
+										@Override
+										public void execute() {
+											Element elem = DOM.getElementById("prime"
+													+ result.left);
 
-									if (result.right) {
-										elem.setClassName("text-success span1");
-									} else {
-										elem.setClassName("text-error span1");
-									}
-
+											if (result.right) {
+												elem.setClassName("text-success span1");
+											} else {
+												elem.setClassName("text-error span1");
+											}
+											
+										}
+									});
 								}
 							});
 				}

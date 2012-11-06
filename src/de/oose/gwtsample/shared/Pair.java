@@ -1,7 +1,7 @@
 package de.oose.gwtsample.shared;
 
 import java.io.Serializable;
-
+ 
 public class Pair<L extends Serializable ,R extends Serializable> implements Serializable {
 
 	  public  L left;
